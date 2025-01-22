@@ -1,0 +1,72 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/transactions/single":
+    post:
+      summary: Creates a transaction
+      tags:
+      - Transactions
+      parameters: []
+      responses:
+        '201':
+          description: transaction created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transaction_id:
+                  type: string
+                points:
+                  type: integer
+                user_id:
+                  type: string
+              required:
+              - transaction_id
+              - points
+              - user_id
+  "/api/v1/transactions/bulk":
+    post:
+      summary: Creates multiple transactions
+      tags:
+      - Transactions
+      parameters: []
+      responses:
+        '201':
+          description: transactions created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transactions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      transaction_id:
+                        type: string
+                      points:
+                        type: integer
+                      user_id:
+                        type: integer
+                    required:
+                    - transaction_id
+                    - points
+                    - user_id
+              required:
+              - transactions
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000/
